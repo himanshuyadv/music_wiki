@@ -1,5 +1,6 @@
 package com.greedygame.musicwiki.data_mw.api_retrofit
 
+import com.greedygame.musicwiki.data_mw.models.album_details.AlbumInfoModel
 import com.greedygame.musicwiki.data_mw.models.charts_tag_info.ChartsTagInfoModel
 import com.greedygame.musicwiki.data_mw.models.charts_top_tags.ChartTopTagsResponse
 import com.greedygame.musicwiki.data_mw.models.tags_top_albums.TagsTopAlbumsModel
@@ -11,13 +12,12 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface ApiService {
+
     @GET("?method=chart.gettoptags")
     suspend fun getChartsTopTags(
         @Query("api_key") apiKey: String = "76de6f9b44f2e0ea14ffa19ce656347e",
         @Query("format") format: String = "json"
     ): Response<ChartTopTagsResponse>
-
-
 
     @GET(GET_TAG_INFO)
     suspend fun getTagDetails(
@@ -33,8 +33,15 @@ interface ApiService {
     suspend fun getTopArtistsFromTag(
         @Query("tag") tag: String = "rock"
     ): Response<TagsTopArtistsModel>
+
     @GET(GET_TAG_TOP_TRACKS)
     suspend fun getTopTracksFromTag(
         @Query("tag") tag: String = "rock"
     ): Response<TagsTopTracksModel>
+
+    @GET(GET_ALBUM_INFO)
+    suspend fun getAlbumInfo(
+        @Query("album") albumName: String = "Believe",
+        @Query("artist") artist: String = "Cher"
+    ): Response<AlbumInfoModel>
 }

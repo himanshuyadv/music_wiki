@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
@@ -12,6 +13,7 @@ import com.greedygame.musicwiki.databinding.FragmentHomeBinding
 import com.greedygame.musicwiki.presentation_mw.adapters.GenreTagsRvAdapter
 import com.greedygame.musicwiki.presentation_mw.viewmodels.SharedViewModel
 import com.greedygame.musicwiki.util_mw.LoadingState
+import okhttp3.internal.notify
 
 
 class HomeFragment : Fragment() {
@@ -30,16 +32,19 @@ class HomeFragment : Fragment() {
     }
 
     private fun initOnCreateHF() {
-        viewModelSharedHF.setToolbarTitle("musicwiki")
-        viewModelSharedHF.setLoadingState(LoadingState.LOADING)
-        adapterGenreTags = GenreTagsRvAdapter(ArrayList())
-        bindingHF.rvGenreTags.adapter = adapterGenreTags
+        with(viewModelSharedHF) {
+            setToolbarTitle("musicwiki")
+            setLoadingState(LoadingState.LOADING)
 
-        // observing Tags list from shared view model
-        viewModelSharedHF.genreTopTags.observe(viewLifecycleOwner) { chartTopTagsResponse ->
-            chartTopTagsResponse?.let {
-                adapterGenreTags.updateTagsList(it.tags.tag)
-                viewModelSharedHF.setLoadingState(LoadingState.SUCCESS)
+            adapterGenreTags = GenreTagsRvAdapter(ArrayList())
+            bindingHF.rvGenreTags.adapter = adapterGenreTags
+
+            // observing Tags list from shared view model
+            genreTopTags.observe(viewLifecycleOwner) { chartTopTagsResponse ->
+                chartTopTagsResponse?.let {
+                    adapterGenreTags.updateTagsList(it.tags.tag)
+                    viewModelSharedHF.setLoadingState(LoadingState.SUCCESS)
+                }
             }
         }
 
@@ -50,5 +55,15 @@ class HomeFragment : Fragment() {
             // Navigating to DetailFragment and passing selected item data as an argument
             findNavController().navigate(R.id.action_homeFragment_to_genreDetailsFragment)
         }
+        bindingHF.ivArrowBtn.setOnClickListener {
+            if (it.rotation==0F){
+                it.rotation=180F
+                adapterGenreTags.showSpecificItemCount(10)
+            } else{
+                it.rotation =0F
+                adapterGenreTags.showSpecificItemCount(-1)
+            }
+        }
+
     }
 }

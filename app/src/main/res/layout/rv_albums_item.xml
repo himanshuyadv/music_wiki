@@ -45,9 +45,9 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/_13ssp"
                     android:textStyle="bold"
-                    app:layout_constraintBottom_toTopOf="@id/postSubText"
-                    app:layout_constraintEnd_toEndOf="@+id/postSubText"
-                    app:layout_constraintStart_toStartOf="@+id/postSubText"
+                    app:layout_constraintBottom_toTopOf="@id/tvAlbumSubText"
+                    app:layout_constraintEnd_toEndOf="@+id/tvAlbumSubText"
+                    app:layout_constraintStart_toStartOf="@+id/tvAlbumSubText"
                     tools:text="Hello Brother" />
 
                 <TextView

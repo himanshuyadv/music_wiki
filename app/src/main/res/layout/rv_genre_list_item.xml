@@ -9,11 +9,12 @@
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_marginHorizontal="@dimen/_5sdp"
-        android:layout_marginVertical="@dimen/_2sdp"
+        android:layout_marginVertical="@dimen/_5sdp"
         android:background="@drawable/bg_rounded_corners_wit_borders"
         android:layout_height="wrap_content">
 
         <TextView
+            android:paddingVertical="@dimen/_2sdp"
             android:layout_marginVertical="@dimen/_1sdp"
             android:lines="1"
             android:ellipsize="end"

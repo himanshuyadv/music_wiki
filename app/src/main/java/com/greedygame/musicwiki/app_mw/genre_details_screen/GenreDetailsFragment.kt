@@ -18,6 +18,7 @@ import com.greedygame.musicwiki.util_mw.tabTitles
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+
 class GenreDetailsFragment : Fragment() {
     private lateinit var bindingGDF: FragmentGenreDetailsBinding
     private val viewModelGDF: SharedViewModel by activityViewModels()
@@ -34,32 +35,53 @@ class GenreDetailsFragment : Fragment() {
 
     private fun initOnCreateView() {
         viewModelGDF.setToolbarTitle("")
-        viewModelGDF.setLoadingState(LoadingState.LOADING)
+        if (!viewModelGDF.isPreviousSelectedTag()) viewModelGDF.setLoadingState(LoadingState.LOADING)
         val viewpagerStatusAdapter = GenreDetailsTabAdapter(this)
         viePagerGenDetails = bindingGDF.viewPagerGenreItem
         viePagerGenDetails.adapter = viewpagerStatusAdapter
         viePagerGenDetails.offscreenPageLimit = 2
         viePagerGenDetails.currentItem = 0
-        TabLayoutMediator(
-            bindingGDF.tabLayoutGenreItems,
-            bindingGDF.viewPagerGenreItem
-        ) { tab: TabLayout.Tab, position: Int ->
-            tab.text = tabTitles[position]
-        }.attach()
 
 
-        // Getting the data of the selected item from the ViewModel and displaying it on UI
-        viewModelGDF.selectedTag.observe(viewLifecycleOwner) { selectedItem ->
-            selectedItem?.let {
-                lifecycleScope.launch(Dispatchers.IO) {
-                    bindingGDF.tagDetails = viewModelGDF.fetchTagDetails().await()
-                    viewModelGDF.fetchTopTracksFromTag().await()
-                    viewModelGDF.fetchTopAlbumsFromTag().await()
-                    viewModelGDF.fetchTopArtistsFromTag().await()
-                    viewModelGDF.setLoadingState(LoadingState.SUCCESS)
+
+        with(bindingGDF) {
+            TabLayoutMediator(
+                tabLayoutGenreItems,
+                viewPagerGenreItem
+            ) { tab: TabLayout.Tab, position: Int ->
+                tab.text = tabTitles[position]
+            }.attach()
+
+            lifecycleOwner = viewLifecycleOwner
+            viewModel = viewModelGDF
+
+            appbarLayout.addOnOffsetChangedListener { appBarLayout, verticalOffset ->
+                // Checking if the appbar is fully collapsed
+                if (Math.abs(verticalOffset) == appBarLayout.totalScrollRange) {
+                    // appbar is fully collapsed
+                    viewModelGDF.setToolbarTitle(viewModelGDF.selectedTag.value?.name.toString())
+                } else if (verticalOffset == 0) {
+                    // appbar is fully expanded
+                } else {
+                    // appbar is partially collapsed
+                    viewModelGDF.setToolbarTitle("")
                 }
             }
-            // Update UI with selected item data
+        }
+
+        // Getting the data of the selected item from the ViewModel and displaying it on UI
+        viewModelGDF.selectedTag.value?.let {
+            lifecycleScope.launch(Dispatchers.IO) {
+                with(viewModelGDF) {
+                    if (isPreviousSelectedTag()) return@launch
+                    lastSelectedTag = it.name
+                    fetchTagDetails().await()
+                    fetchTopTracksFromTag().await()
+                    fetchTopAlbumsFromTag().await()
+                    fetchTopArtistsFromTag().await()
+                    setLoadingState(LoadingState.SUCCESS)
+                }
+            }
         }
     }
 }

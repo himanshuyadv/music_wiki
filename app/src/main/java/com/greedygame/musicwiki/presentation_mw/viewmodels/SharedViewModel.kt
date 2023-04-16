@@ -6,8 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.greedygame.musicwiki.data_mw.api_retrofit.ApiClient
+import com.greedygame.musicwiki.data_mw.models.charts_tag_info.ChartsTagInfoModel
 import com.greedygame.musicwiki.data_mw.models.charts_top_tags.ChartTopTagsResponse
 import com.greedygame.musicwiki.data_mw.models.charts_top_tags.Tag
+import com.greedygame.musicwiki.data_mw.models.tags_top_albums.Album
 import com.greedygame.musicwiki.data_mw.models.tags_top_albums.TagsTopAlbumsModel
 import com.greedygame.musicwiki.data_mw.models.tags_top_artists.TagsTopArtistsModel
 import com.greedygame.musicwiki.data_mw.models.tags_top_tracks.TagsTopTracksModel
@@ -26,22 +28,34 @@ class SharedViewModel : ViewModel() {
     private val _genreTopTags = MutableLiveData<ChartTopTagsResponse>()
     val genreTopTags: LiveData<ChartTopTagsResponse> = _genreTopTags
 
-    // selected tag details
+    // selected tag
     private val _selectedTag = MutableLiveData<Tag>()
     val selectedTag: LiveData<Tag> = _selectedTag
+    var lastSelectedTag:String?=null
+
+    // selected tag Info
+    private val _selectedTagInfo = MutableLiveData<ChartsTagInfoModel>()
+    val selectedTagInfo: LiveData<ChartsTagInfoModel> = _selectedTagInfo
 
     // album list for selected tag
     private val _albumsList = MutableLiveData<TagsTopAlbumsModel>()
     val albumsList: LiveData<TagsTopAlbumsModel> = _albumsList
+
+    // selected album
+    private val _selectedAlbum = MutableLiveData<Album>()
+    val selectedAlbum: LiveData<Album> = _selectedAlbum
 
 
     // artist list for selected tag
     private val _artistsList = MutableLiveData<TagsTopArtistsModel>()
     val artistsList: LiveData<TagsTopArtistsModel> = _artistsList
 
-    // artist list for selected tag
+    // tracks list for selected tag
     private val _tracksList = MutableLiveData<TagsTopTracksModel>()
     val tracksList: LiveData<TagsTopTracksModel> = _tracksList
+
+    // genre details data
+    var isGenreDetailsDataExist =false
 
     // retrofit error
     private val _errorMessage = MutableLiveData<String>()
@@ -56,6 +70,7 @@ class SharedViewModel : ViewModel() {
         //  fetchTopAlbumsFromTag()
         //  fetchTopArtistsFromTag()
     }
+
 
     fun setLoadingState(loadingState: LoadingState) = viewModelScope.launch {
         _loadingState.postValue(loadingState)
@@ -79,18 +94,17 @@ class SharedViewModel : ViewModel() {
     }
 
 
+
     fun fetchTagDetails() = viewModelScope.async(Dispatchers.IO) {
         try {
             val response = ApiClient.apiService.getTagDetails(selectedTag.value?.name!!)
             if (response.isSuccessful && response.body() != null) {
-                return@async response.body()
+                _selectedTagInfo.postValue(response.body())
             } else {
                 _errorMessage.postValue(response.message())
-                return@async null
             }
         } catch (e: Exception) {
             _errorMessage.postValue(e.message)
-            return@async null
         }
     }
 
@@ -106,6 +120,13 @@ class SharedViewModel : ViewModel() {
             _errorMessage.postValue(e.message)
         }
     }
+    fun isPreviousSelectedTag():Boolean{
+        return lastSelectedTag==_selectedTag.value?.name
+    }
+
+    fun setSelectedAlbum(album:Album){
+        _selectedAlbum.postValue(album)
+    }
 
     fun fetchTopArtistsFromTag() = viewModelScope.async(Dispatchers.IO) {
         try {
@@ -119,6 +140,7 @@ class SharedViewModel : ViewModel() {
             _errorMessage.postValue(e.message)
         }
     }
+
 
 
     fun fetchTopTracksFromTag() = viewModelScope.async(Dispatchers.IO) {

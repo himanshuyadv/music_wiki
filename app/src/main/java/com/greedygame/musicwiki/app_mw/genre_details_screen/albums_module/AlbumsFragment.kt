@@ -1,4 +1,4 @@
-package com.greedygame.musicwiki.app_mw.genre_details_screen
+package com.greedygame.musicwiki.app_mw.genre_details_screen.albums_module
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
+import com.greedygame.musicwiki.R
 import com.greedygame.musicwiki.databinding.FragmentAlbumsBinding
 import com.greedygame.musicwiki.presentation_mw.adapters.AlbumsAdapter
 import com.greedygame.musicwiki.presentation_mw.viewmodels.SharedViewModel
@@ -38,6 +40,13 @@ class AlbumsFragment : Fragment() {
                 adapterAlbums.updateAlbumsList(it.albums.album)
             }
         }
-    }
 
+        // setting listener to RecyclerView adapter
+        adapterAlbums.setOnItemClickListener { selectedAlbum ->
+
+            viewmodelAF.setSelectedAlbum(selectedAlbum)
+            // Navigating to DetailFragment and passing selected item data as an argument
+            findNavController().navigate(R.id.action_genreDetailsFragment_to_albumDetailedFragment)
+        }
+    }
 }

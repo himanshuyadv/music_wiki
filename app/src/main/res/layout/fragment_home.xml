@@ -50,6 +50,8 @@
                 android:textSize="@dimen/_11ssp" />
 
             <ImageView
+                android:rotation="180"
+                android:id="@+id/ivArrowBtn"
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
                 android:layout_margin="@dimen/_2sdp"
@@ -62,17 +64,18 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvGenreTags"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/_10sdp"
             android:layout_marginTop="@dimen/_15sdp"
-            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_marginBottom="@dimen/_15ssp"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
             app:spanCount="3"
             tools:itemCount="12"
-            tools:listitem="@layout/genre_list_item" />
+            tools:listitem="@layout/rv_genre_list_item" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

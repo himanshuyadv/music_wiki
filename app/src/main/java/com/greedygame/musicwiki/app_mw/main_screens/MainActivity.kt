@@ -3,12 +3,12 @@ package com.greedygame.musicwiki.app_mw.main_screens
 import android.os.Bundle
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.greedygame.musicwiki.databinding.ActivityMainBinding
 import com.greedygame.musicwiki.presentation_mw.viewmodels.SharedViewModel
 import com.greedygame.musicwiki.util_mw.LoadingState
+import com.greedygame.musicwiki.util_mw.toastActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bindingMainAct: ActivityMainBinding
@@ -21,28 +21,32 @@ class MainActivity : AppCompatActivity() {
         //  lifecycle.addObserver(MainActLifecycle())
 
 
-
-
-        viewModelSharedMainAct.loadingState.observe(this) { loadingState ->
-            when (loadingState) {
-                LoadingState.LOADING -> {
-                    // Show progress bar
-                    bindingMainAct.progressLayout.visibility = VISIBLE
-                }
-                LoadingState.SUCCESS -> {
-                    // Hide progress bar
-                    bindingMainAct.progressLayout.visibility = GONE
-                }
-                LoadingState.ERROR -> {
-                    // Show error prompt
-                    Toast.makeText(this, "Something went wrong", Toast.LENGTH_SHORT).show()
-                    // Hide progress bar
-                    bindingMainAct.progressLayout.visibility = GONE
+        with(bindingMainAct) {
+            viewModelSharedMainAct.loadingState.observe(this@MainActivity) { loadingState ->
+                when (loadingState) {
+                    LoadingState.LOADING -> {
+                        // Show progress bar
+                        progressLayout.visibility = VISIBLE
+                    }
+                    LoadingState.SUCCESS -> {
+                        // Hide progress bar
+                        progressLayout.visibility = GONE
+                    }
+                    LoadingState.ERROR -> {
+                        // Show error prompt
+                        toastActivity("Something went wrong")
+                        // Hide progress bar
+                        progressLayout.visibility = GONE
+                    }
                 }
             }
+            viewModelSharedMainAct.toolbarTitle.observe(this@MainActivity) { title ->
+                tvToolbarTitle.text = title
+            }
+            bindingMainAct.ivBackBtn.setOnClickListener {
+                onBackPressedDispatcher.onBackPressed()
+            }
         }
-        viewModelSharedMainAct.toolbarTitle.observe(this){title->
-            bindingMainAct.tvToolbarTitle.text=title
-        }
+
     }
 }

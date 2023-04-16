@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.greedygame.musicwiki.data_mw.models.charts_top_tags.Tag
-import com.greedygame.musicwiki.databinding.GenreListItemBinding
+import com.greedygame.musicwiki.databinding.RvGenreListItemBinding
 
 
 class GenreTagsRvAdapter(
@@ -13,6 +13,8 @@ class GenreTagsRvAdapter(
 ) :
     RecyclerView.Adapter<GenreTagsRvAdapter.ViewHolder>() {
 
+
+    private var listSize = if (genreTagsList.isNotEmpty()) 10 else 0
     private var listener: ((Tag) -> Unit)? = null
 
     fun setOnItemClickListener(listener: (Tag) -> Unit) {
@@ -21,7 +23,7 @@ class GenreTagsRvAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            GenreListItemBinding.inflate(
+            RvGenreListItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -30,11 +32,17 @@ class GenreTagsRvAdapter(
     }
 
     override fun getItemCount(): Int {
-        return genreTagsList.size
+        return listSize
     }
 
     fun updateTagsList(newList: List<Tag>) {
         genreTagsList = newList
+        listSize = 10
+        notifyDataSetChanged()
+    }
+
+    fun showSpecificItemCount(count: Int) {
+        if (count == -1) listSize = genreTagsList.size else listSize = count
         notifyDataSetChanged()
     }
 
@@ -49,7 +57,7 @@ class GenreTagsRvAdapter(
         }
     }
 
-    inner class ViewHolder(binding: GenreListItemBinding) :
+    inner class ViewHolder(binding: RvGenreListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val tvPost: TextView = binding.tvGenreTagName
     }

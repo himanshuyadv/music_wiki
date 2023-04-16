@@ -41,6 +41,8 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/_20ssp"
                 android:textStyle="bold"
+                android:ellipsize="end"
+                android:paddingBottom="@dimen/_3sdp"
                 app:layout_constraintEnd_toStartOf="@id/ivMenu"
                 app:layout_constraintStart_toEndOf="@+id/ivBackBtn" />
 

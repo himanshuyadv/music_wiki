@@ -19,6 +19,14 @@ class AlbumsAdapter(
 ) :
     RecyclerView.Adapter<AlbumsAdapter.ViewHolder>() {
 
+
+
+    private var listenerAlbumClick: ((Album) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (Album) -> Unit) {
+        listenerAlbumClick = listener
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
             RvAlbumsItemBinding.inflate(
@@ -45,6 +53,9 @@ class AlbumsAdapter(
             tvPostMainText.text = albumDetails.name
             tvPostSubText.text =albumDetails.artist.name
             Glide.with(itemView.context).load(albumDetails.image[MEDIUM_SIZE_IMG].text).into(ivPostThumbnail)
+            itemView.setOnClickListener {
+                listenerAlbumClick?.invoke(albumDetails)
+            }
         }
     }
 

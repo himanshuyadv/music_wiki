@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:gravity="center"
+        android:layout_width="100sp"
+        android:layout_marginHorizontal="@dimen/_2sdp"
+        android:layout_marginVertical="@dimen/_5sdp"
+        android:layout_height="?actionBarSize">
+
+        <TextView
+            android:background="@drawable/bg_rounded_corners_wit_borders"
+            android:paddingVertical="@dimen/_4sdp"
+            android:lines="1"
+            android:ellipsize="end"
+            android:id="@+id/tvGenreTagName"
+            android:textAlignment="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="Rock"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp" />
+
+    </RelativeLayout>
+</layout>
+
+

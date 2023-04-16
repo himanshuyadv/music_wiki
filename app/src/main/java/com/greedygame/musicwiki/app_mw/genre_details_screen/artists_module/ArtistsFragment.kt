@@ -1,4 +1,4 @@
-package com.greedygame.musicwiki.app_mw.genre_details_screen
+package com.greedygame.musicwiki.app_mw.genre_details_screen.artists_module
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import com.greedygame.musicwiki.databinding.FragmentAlbumsBinding
-import com.greedygame.musicwiki.presentation_mw.adapters.AlbumsAdapter
 import com.greedygame.musicwiki.presentation_mw.adapters.ArtistsAdapter
 import com.greedygame.musicwiki.presentation_mw.viewmodels.SharedViewModel
 

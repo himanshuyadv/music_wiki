@@ -6,8 +6,8 @@
     <data>
 
         <variable
-            name="tagDetails"
-            type="com.greedygame.musicwiki.data_mw.models.charts_tag_info.ChartsTagInfoModel" />
+            name="viewModel"
+            type="com.greedygame.musicwiki.presentation_mw.viewmodels.SharedViewModel" />
 
     </data>
 
@@ -42,7 +42,7 @@
                         android:layout_marginTop="@dimen/_15sdp"
                         android:ellipsize="end"
                         android:lines="1"
-                        android:text="@{tagDetails.tag.name}"
+                        android:text="@{viewModel.selectedTagInfo.tag.name}"
                         tools:text="Rock"
                         android:textAlignment="center"
                         android:textColor="@color/black"
@@ -55,7 +55,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:text="@{tagDetails.tag.wiki.summary}"
+                        android:text="@{viewModel.selectedTagInfo.tag.wiki.summary}"
                         android:textColor="@color/black"
                         tools:text="ksuycgu suyckgsucygsc skucysgcksduycg skcuygskcysgc csiducyglsiducg sdciusdgclisducg sdlicusdglicugdsc slicusgdlicugd lsiucgldsic sliucgsdlicugds lsiducgsdlicugds cisducgsdiucgds lciusdg cliusdgc sdilucg sdiucg slicgsd kucugsdkucygds ckdsucysfd cukysfducysd " />
                 </LinearLayout>
