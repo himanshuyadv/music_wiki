@@ -6,14 +6,19 @@
     </data>
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_margin="@dimen/_3sdp"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="@dimen/_5sdp"
+        android:layout_marginVertical="@dimen/_2sdp"
         android:background="@drawable/bg_rounded_corners_wit_borders"
         android:layout_height="wrap_content">
 
         <TextView
+            android:layout_marginVertical="@dimen/_1sdp"
+            android:lines="1"
+            android:ellipsize="end"
             android:id="@+id/tvGenreTagName"
-            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_marginHorizontal="@dimen/_5sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Rock"

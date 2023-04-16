@@ -10,9 +10,15 @@ import com.greedygame.musicwiki.databinding.GenreListItemBinding
 
 
 class GenreTagsRvAdapter(
-    private val genreTagsList: List<Tag>
+    private var genreTagsList: List<Tag>
 ) :
     RecyclerView.Adapter<GenreTagsRvAdapter.ViewHolder>() {
+
+    private var listener: ((Tag) -> Unit)? = null
+
+    fun setOnItemClickListener(listener: (Tag) -> Unit) {
+        this.listener = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -27,11 +33,19 @@ class GenreTagsRvAdapter(
     override fun getItemCount(): Int {
         return genreTagsList.size
     }
+    fun updateTagsList(newList: List<Tag>) {
+        genreTagsList = newList
+        notifyDataSetChanged()
+    }
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val tagDetails = genreTagsList[position]
         with(holder) {
             tvPost.text = tagDetails.name
+            holder.itemView.setOnClickListener {
+                listener?.invoke(tagDetails)
+            }
         }
     }
 
