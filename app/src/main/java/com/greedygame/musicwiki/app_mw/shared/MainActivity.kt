@@ -1,4 +1,4 @@
-package com.greedygame.musicwiki.app_mw.shared_screens
+package com.greedygame.musicwiki.app_mw.shared
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

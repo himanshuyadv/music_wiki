@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:id="@+id/navigation">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navigation"
+    app:startDestination="@id/homeFragment">
 
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.greedygame.musicwiki.app_mw.fragments.HomeFragment"
+        android:label="fragment_home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_homeFragment_to_genreDetailsFragment"
+            app:destination="@id/genreDetailsFragment" />
+    </fragment>
+    <fragment
+        tools:layout="@layout/fragment_genre_details"
+        android:id="@+id/genreDetailsFragment"
+        android:name="com.greedygame.musicwiki.app_mw.fragments.GenreDetailsFragment"
+        android:label="GenreDetailsFragment" />
 </navigation>

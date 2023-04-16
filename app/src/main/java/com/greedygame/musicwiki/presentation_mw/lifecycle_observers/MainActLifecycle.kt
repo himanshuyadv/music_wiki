@@ -1,4 +1,4 @@
-package com.greedygame.musicwiki.presentation_mw.observers
+package com.greedygame.musicwiki.presentation_mw.lifecycle_observers
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
@@ -6,11 +6,11 @@ import androidx.lifecycle.LifecycleOwner
 
 class MainActLifecycle : DefaultLifecycleObserver {
     override fun onResume(owner: LifecycleOwner) {
-
+        super.onResume(owner)
     }
 
     override fun onDestroy(owner: LifecycleOwner) {
-
+        super.onDestroy(owner)
     }
 
     override fun onStart(owner: LifecycleOwner) {

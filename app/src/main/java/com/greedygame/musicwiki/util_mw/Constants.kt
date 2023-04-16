@@ -1,4 +1,3 @@
 package com.greedygame.musicwiki.util_mw
 
-class Constants {
-}
+val tabTitles = arrayOf("Albums", "Artists", "Tracks")
