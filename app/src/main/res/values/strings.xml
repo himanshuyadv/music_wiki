@@ -3,4 +3,5 @@
     <string name="title_musicwiki">musicwiki</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="last_fm_api_key">76de6f9b44f2e0ea14ffa19ce656347e</string>
 </resources>

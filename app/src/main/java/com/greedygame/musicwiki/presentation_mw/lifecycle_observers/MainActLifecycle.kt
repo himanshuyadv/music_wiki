@@ -5,6 +5,10 @@ import androidx.lifecycle.LifecycleOwner
 
 
 class MainActLifecycle : DefaultLifecycleObserver {
+    override fun onCreate(owner: LifecycleOwner) {
+
+        super.onCreate(owner)
+    }
     override fun onResume(owner: LifecycleOwner) {
         super.onResume(owner)
     }
