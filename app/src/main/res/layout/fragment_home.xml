@@ -16,7 +16,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarHomeAct"
-        tools:context=".app_mw.fragments.HomeFragment">
+        tools:context=".app_mw.main_screens.HomeFragment">
 
         <TextView
             android:id="@+id/textView2"

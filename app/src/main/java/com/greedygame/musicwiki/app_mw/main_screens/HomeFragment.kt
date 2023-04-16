@@ -1,4 +1,4 @@
-package com.greedygame.musicwiki.app_mw.fragments
+package com.greedygame.musicwiki.app_mw.main_screens
 
 import android.os.Bundle
 import android.view.LayoutInflater

@@ -1,4 +1,4 @@
-package com.greedygame.musicwiki.app_mw.fragments
+package com.greedygame.musicwiki.app_mw.genre_details_screen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -15,7 +15,6 @@ import com.greedygame.musicwiki.presentation_mw.adapters.GenreDetailsTabAdapter
 import com.greedygame.musicwiki.presentation_mw.viewmodels.SharedViewModel
 import com.greedygame.musicwiki.util_mw.LoadingState
 import com.greedygame.musicwiki.util_mw.tabTitles
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -49,12 +48,11 @@ class GenreDetailsFragment : Fragment() {
         }.attach()
 
 
-
         // Getting the data of the selected item from the ViewModel and displaying it on UI
         viewModelGDF.selectedTag.observe(viewLifecycleOwner) { selectedItem ->
             selectedItem?.let {
                 lifecycleScope.launch(Dispatchers.IO) {
-                    bindingGDF.tagDetails= viewModelGDF.fetchTagDetails().await()
+                    bindingGDF.tagDetails = viewModelGDF.fetchTagDetails().await()
                     viewModelGDF.fetchTopTracksFromTag().await()
                     viewModelGDF.fetchTopAlbumsFromTag().await()
                     viewModelGDF.fetchTopArtistsFromTag().await()
