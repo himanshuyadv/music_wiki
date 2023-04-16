@@ -5,15 +5,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.greedygame.musicwiki.databinding.FragmentGenreDetailsBinding
 import com.greedygame.musicwiki.presentation_mw.adapters.GenreDetailsTabAdapter
+import com.greedygame.musicwiki.presentation_mw.viewmodels.SharedViewModel
+import com.greedygame.musicwiki.util_mw.LoadingState
 import com.greedygame.musicwiki.util_mw.tabTitles
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class GenreDetailsFragment : Fragment() {
     private lateinit var bindingGDF: FragmentGenreDetailsBinding
+    private val viewModelGDF: SharedViewModel by activityViewModels()
     private lateinit var viePagerGenDetails: ViewPager2
 
     override fun onCreateView(
@@ -21,15 +29,13 @@ class GenreDetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         bindingGDF = FragmentGenreDetailsBinding.inflate(layoutInflater, container, false)
+        initOnCreateView()
         return bindingGDF.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initOnCreateView()
-        super.onViewCreated(view, savedInstanceState)
-    }
-
     private fun initOnCreateView() {
+        viewModelGDF.setToolbarTitle("")
+        viewModelGDF.setLoadingState(LoadingState.LOADING)
         val viewpagerStatusAdapter = GenreDetailsTabAdapter(this)
         viePagerGenDetails = bindingGDF.viewPagerGenreItem
         viePagerGenDetails.adapter = viewpagerStatusAdapter
@@ -41,7 +47,21 @@ class GenreDetailsFragment : Fragment() {
         ) { tab: TabLayout.Tab, position: Int ->
             tab.text = tabTitles[position]
         }.attach()
-//        setupTabIcons()
-//        checkContentAndPermissionStatus()
+
+
+
+        // Getting the data of the selected item from the ViewModel and displaying it on UI
+        viewModelGDF.selectedTag.observe(viewLifecycleOwner) { selectedItem ->
+            selectedItem?.let {
+                lifecycleScope.launch(Dispatchers.IO) {
+                    bindingGDF.tagDetails= viewModelGDF.fetchTagDetails().await()
+                    viewModelGDF.fetchTopTracksFromTag().await()
+                    viewModelGDF.fetchTopAlbumsFromTag().await()
+                    viewModelGDF.fetchTopArtistsFromTag().await()
+                    viewModelGDF.setLoadingState(LoadingState.SUCCESS)
+                }
+            }
+            // Update UI with selected item data
+        }
     }
 }

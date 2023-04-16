@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+        <variable
+            name="tagDetails"
+            type="com.greedygame.musicwiki.data_mw.models.charts_tag_info.ChartsTagInfoModel" />
 
     </data>
 
@@ -36,7 +41,8 @@
                         android:layout_marginTop="@dimen/_15sdp"
                         android:ellipsize="end"
                         android:lines="1"
-                        android:text="Rock"
+                        android:text="@{tagDetails.tag.name}"
+                        tools:text="Rock"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_28ssp"
@@ -47,8 +53,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:text="ksuycgu suyckgsucygsc skucysgcksduycg skcuygskcysgc csiducyglsiducg sdciusdgclisducg sdlicusdglicugdsc slicusgdlicugd lsiucgldsic sliucgsdlicugds lsiducgsdlicugds cisducgsdiucgds lciusdg cliusdgc sdilucg sdiucg slicgsd kucugsdkucygds ckdsucysfd cukysfducysd "
-                        android:textColor="@color/black" />
+                        android:text="@{tagDetails.tag.wiki.summary}"
+                        android:textColor="@color/black"
+                        tools:text="ksuycgu suyckgsucygsc skucysgcksduycg skcuygskcysgc csiducyglsiducg sdciusdgclisducg sdlicusdglicugdsc slicusgdlicugd lsiucgldsic sliucgsdlicugds lsiducgsdlicugds cisducgsdiucgds lciusdg cliusdgc sdilucg sdiucg slicgsd kucugsdkucygds ckdsucysfd cukysfducysd " />
                 </LinearLayout>
             </com.google.android.material.appbar.CollapsingToolbarLayout>
         </com.google.android.material.appbar.AppBarLayout>

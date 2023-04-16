@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.greedygame.musicwiki.data_mw.models.charts_top_tags.Tag
-import com.greedygame.musicwiki.data_mw.models.charts_top_tags.Tags
 import com.greedygame.musicwiki.databinding.GenreListItemBinding
 
 
@@ -33,6 +32,7 @@ class GenreTagsRvAdapter(
     override fun getItemCount(): Int {
         return genreTagsList.size
     }
+
     fun updateTagsList(newList: List<Tag>) {
         genreTagsList = newList
         notifyDataSetChanged()

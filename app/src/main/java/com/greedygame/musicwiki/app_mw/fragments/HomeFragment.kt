@@ -1,56 +1,54 @@
 package com.greedygame.musicwiki.app_mw.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.greedygame.musicwiki.R
+import com.greedygame.musicwiki.databinding.FragmentHomeBinding
 import com.greedygame.musicwiki.presentation_mw.adapters.GenreTagsRvAdapter
 import com.greedygame.musicwiki.presentation_mw.viewmodels.SharedViewModel
+import com.greedygame.musicwiki.util_mw.LoadingState
 
 
 class HomeFragment : Fragment() {
 
-    private val sharedViewModelHF: SharedViewModel by viewModels()
+    private val viewModelSharedHF: SharedViewModel by activityViewModels()
+    private lateinit var bindingHF: FragmentHomeBinding
     private lateinit var adapterGenreTags: GenreTagsRvAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false)
+        bindingHF = FragmentHomeBinding.inflate(layoutInflater, container, false)
+        initOnCreateHF()
+        return bindingHF.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    private fun initOnCreateHF() {
+        viewModelSharedHF.setToolbarTitle("musicwiki")
+        viewModelSharedHF.setLoadingState(LoadingState.LOADING)
         adapterGenreTags = GenreTagsRvAdapter(ArrayList())
-        val rv = view.findViewById<RecyclerView>(R.id.rvGenreTags)
-        rv.adapter = adapterGenreTags
+        bindingHF.rvGenreTags.adapter = adapterGenreTags
 
-        sharedViewModelHF.genreTopTags.observe(viewLifecycleOwner) { chartTopTagsResponse ->
+        // observing Tags list from shared view model
+        viewModelSharedHF.genreTopTags.observe(viewLifecycleOwner) { chartTopTagsResponse ->
             chartTopTagsResponse?.let {
                 adapterGenreTags.updateTagsList(it.tags.tag)
+                viewModelSharedHF.setLoadingState(LoadingState.SUCCESS)
             }
         }
 
-        // listener for RecyclerView adapter
+        // setting listener to RecyclerView adapter
         adapterGenreTags.setOnItemClickListener { selectedTag ->
-
             // Update ViewModel with selected item data
-            sharedViewModelHF.setSelectedTag(selectedTag)
-
-            Log.e("TAG", "Item clicked: $selectedTag")
-
+            viewModelSharedHF.setSelectedTag(selectedTag)
             // Navigating to DetailFragment and passing selected item data as an argument
             findNavController().navigate(R.id.action_homeFragment_to_genreDetailsFragment)
         }
-
-        super.onViewCreated(view, savedInstanceState)
     }
-
-
 }
