@@ -72,12 +72,12 @@
                     app:elevation="0dp">
 
                     <com.google.android.material.tabs.TabLayout
-                        app:tabTextAppearance="@style/MyTabTextStyle"
                         android:id="@+id/tabLayoutGenreItems"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:tabMode="fixed"
-                        app:tabSelectedTextColor="@color/black" />
+                        app:tabSelectedTextColor="@color/black"
+                        app:tabTextAppearance="@style/MyTabTextStyle" />
                 </com.google.android.material.appbar.AppBarLayout>
 
                 <androidx.viewpager2.widget.ViewPager2

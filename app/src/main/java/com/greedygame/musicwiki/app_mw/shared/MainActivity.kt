@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         lifecycle.addObserver(MainActLifecycle())
 
-        sharedViewModelMainAct.users.observe(this){
+        sharedViewModelMainAct.genreTopTags.observe(this){
             Log.e(TAG, "onCreate: $it ")
         }
 

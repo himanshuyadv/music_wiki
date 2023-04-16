@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_margin="@dimen/_3sdp"
-    android:background="@drawable/bg_rounded_corners_wit_borders"
-    android:layout_height="wrap_content">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <TextView
-        android:layout_marginHorizontal="@dimen/_15sdp"
+    <data>
+
+    </data>
+
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Rock"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_12ssp"/>
+        android:layout_margin="@dimen/_3sdp"
+        android:background="@drawable/bg_rounded_corners_wit_borders"
+        android:layout_height="wrap_content">
 
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tvGenreTagName"
+            android:layout_marginHorizontal="@dimen/_15sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rock"
+            android:textColor="@color/black"
+            android:textSize="@dimen/_12ssp" />
+
+    </RelativeLayout>
+</layout>

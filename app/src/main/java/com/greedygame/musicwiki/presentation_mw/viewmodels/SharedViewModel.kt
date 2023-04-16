@@ -9,14 +9,14 @@ import com.greedygame.musicwiki.data_mw.models.charts_top_tags.ChartTopTagsRespo
 import kotlinx.coroutines.launch
 
 class SharedViewModel : ViewModel() {
-    private val _users = MutableLiveData<ChartTopTagsResponse>()
-    val users: LiveData<ChartTopTagsResponse> = _users
+    private val _genreTopTags = MutableLiveData<ChartTopTagsResponse>()
+    val genreTopTags: LiveData<ChartTopTagsResponse> = _genreTopTags
 
     init {
         viewModelScope.launch {
             val response = ApiClient.apiService.getChartsTopTags()
             if (response.isSuccessful) {
-                _users.value = response.body()
+                _genreTopTags.value = response.body()
             } else {
                 // handle error
             }

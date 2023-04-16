@@ -8,20 +8,20 @@ import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
-import com.greedygame.musicwiki.R
+import com.greedygame.musicwiki.databinding.FragmentGenreDetailsBinding
 import com.greedygame.musicwiki.presentation_mw.adapters.GenreDetailsTabAdapter
 import com.greedygame.musicwiki.util_mw.tabTitles
 
 class GenreDetailsFragment : Fragment() {
-
+    private lateinit var bindingGDF: FragmentGenreDetailsBinding
+    private lateinit var viePagerGenDetails: ViewPager2
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_genre_details, container, false)
+    ): View {
+        bindingGDF = FragmentGenreDetailsBinding.inflate(layoutInflater, container, false)
+        return bindingGDF.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -31,12 +31,13 @@ class GenreDetailsFragment : Fragment() {
 
     private fun initOnCreateView() {
         val viewpagerStatusAdapter = GenreDetailsTabAdapter(this)
-        view?.findViewById<ViewPager2>(R.id.viewPagerGenreItem)!!.adapter = viewpagerStatusAdapter
-        view?.findViewById<ViewPager2>(R.id.viewPagerGenreItem)!!.offscreenPageLimit = 2
-        view?.findViewById<ViewPager2>(R.id.viewPagerGenreItem)!!.currentItem = 1
+        viePagerGenDetails = bindingGDF.viewPagerGenreItem
+        viePagerGenDetails.adapter = viewpagerStatusAdapter
+        viePagerGenDetails.offscreenPageLimit = 2
+        viePagerGenDetails.currentItem = 1
         TabLayoutMediator(
-            view?.findViewById<TabLayout>(R.id.tabLayoutGenreItems)!!,
-            view?.findViewById<ViewPager2>(R.id.viewPagerGenreItem)!!
+            bindingGDF.tabLayoutGenreItems,
+            bindingGDF.viewPagerGenreItem
         ) { tab: TabLayout.Tab, position: Int ->
             tab.text = tabTitles[position]
         }.attach()
