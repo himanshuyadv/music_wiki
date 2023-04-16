@@ -5,17 +5,37 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.greedygame.musicwiki.R
+import com.greedygame.musicwiki.databinding.FragmentAlbumsBinding
+import com.greedygame.musicwiki.presentation_mw.adapters.ArtistsAdapter
+import com.greedygame.musicwiki.presentation_mw.adapters.TracksAdapter
+import com.greedygame.musicwiki.presentation_mw.viewmodels.SharedViewModel
 
 
 class TracksFragment : Fragment() {
 
+    private val viewmodelTF: SharedViewModel by activityViewModels()
+    private lateinit var bindingTF: FragmentAlbumsBinding
+    private lateinit var adapterTracks: TracksAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tracks, container, false)
+    ): View {
+        bindingTF = FragmentAlbumsBinding.inflate(layoutInflater, container, false)
+        initOnCreateView()
+        return bindingTF.root
     }
 
+    private fun initOnCreateView() {
+        adapterTracks = TracksAdapter(ArrayList())
+        bindingTF.rvUserActivities.adapter = adapterTracks
+
+        viewmodelTF.tracksList.observe(viewLifecycleOwner) { albumsList ->
+            albumsList?.let {
+                adapterTracks.updateTracksList(it.tracks.track)
+            }
+        }
+    }
 }

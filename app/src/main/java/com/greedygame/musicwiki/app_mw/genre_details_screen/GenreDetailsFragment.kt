@@ -39,7 +39,7 @@ class GenreDetailsFragment : Fragment() {
         viePagerGenDetails = bindingGDF.viewPagerGenreItem
         viePagerGenDetails.adapter = viewpagerStatusAdapter
         viePagerGenDetails.offscreenPageLimit = 2
-        viePagerGenDetails.currentItem = 1
+        viePagerGenDetails.currentItem = 0
         TabLayoutMediator(
             bindingGDF.tabLayoutGenreItems,
             bindingGDF.viewPagerGenreItem

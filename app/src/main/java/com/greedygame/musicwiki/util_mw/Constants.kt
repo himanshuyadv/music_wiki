@@ -9,6 +9,13 @@ const val GET_TAG_TOP_ARTISTS="?api_key=$apiKeyLastFm&format=json&method=tag.get
 const val GET_TAG_TOP_TRACKS="?api_key=$apiKeyLastFm&format=json&method=tag.gettoptracks"
 
 
+// image sizes
+const val SMALL_SIZE_IMG=0
+const val MEDIUM_SIZE_IMG=1
+const val LARGE_SIZE_IMG=2
+const val X_LARGE_SIZE_IMG=3
+
+
 
 
 

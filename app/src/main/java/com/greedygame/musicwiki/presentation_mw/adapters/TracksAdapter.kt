@@ -6,18 +6,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.greedygame.musicwiki.data_mw.models.charts_top_tags.Tag
-import com.greedygame.musicwiki.data_mw.models.tags_top_albums.Album
-import com.greedygame.musicwiki.data_mw.models.tags_top_albums.Albums
-
+import com.greedygame.musicwiki.data_mw.models.tags_top_tracks.Track
 import com.greedygame.musicwiki.databinding.RvAlbumsItemBinding
 import com.greedygame.musicwiki.util_mw.MEDIUM_SIZE_IMG
+import com.greedygame.musicwiki.util_mw.SMALL_SIZE_IMG
 
 
-class AlbumsAdapter(
-    private var albumList: List<Album>
+class TracksAdapter(
+    private var tracksList: List<Track>
 ) :
-    RecyclerView.Adapter<AlbumsAdapter.ViewHolder>() {
+    RecyclerView.Adapter<TracksAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
@@ -29,22 +27,22 @@ class AlbumsAdapter(
         return ViewHolder(binding)
     }
 
-    fun updateAlbumsList(newList: List<Album>) {
-        albumList = newList
+    fun updateTracksList(newList: List<Track>) {
+        tracksList = newList
         notifyDataSetChanged()
     }
 
 
     override fun getItemCount(): Int {
-        return albumList.size
+        return tracksList.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val albumDetails = albumList[position]
+        val tracksDetails = tracksList[position]
         with(holder) {
-            tvPostMainText.text = albumDetails.name
-            tvPostSubText.text =albumDetails.artist.name
-            Glide.with(itemView.context).load(albumDetails.image[MEDIUM_SIZE_IMG].text).into(ivPostThumbnail)
+            tvPostMainText.text = tracksDetails.name
+            tvPostSubText.text = tracksDetails.artist.name
+            Glide.with(itemView.context).load(tracksDetails.image[MEDIUM_SIZE_IMG].text).into(ivPostThumbnail)
         }
     }
 
@@ -52,6 +50,6 @@ class AlbumsAdapter(
         RecyclerView.ViewHolder(binding.root) {
         val tvPostMainText: TextView = binding.postMainText
         val tvPostSubText: TextView = binding.postSubText
-        val ivPostThumbnail:ImageView = binding.ivPostThumbnail
+        val ivPostThumbnail: ImageView = binding.ivPostThumbnail
     }
 }
