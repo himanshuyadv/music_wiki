@@ -49,6 +49,15 @@ To run the app on your device, follow these steps:
 
 4. Build and run the app on your device
 
+## App Preview
+
+Check out the video preview of the Music Wiki app:
+ 
+https://github.com/himanshuyadv/music_wiki/blob/master/video_2023-04-17_08-12-08.mp4
+
+Click on the link above to watch the video preview of the app.
+
+
 ## License
 
 This project is licensed under the MIT License - see the LICENSE.md file for details. 
