@@ -4,17 +4,15 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.greedygame.musicwiki.data_mw.models.charts_top_tags.Tag
-import com.greedygame.musicwiki.databinding.RvGenreListItemBinding
+import com.greedygame.musicwiki.data_mw.models.albums_top_tags.Tag
+import com.greedygame.musicwiki.databinding.RvTagsListItemBinding
 
 
-class GenreTagsRvAdapter(
+class AlbumsTagsRvAdapter(
     private var genreTagsList: List<Tag>
 ) :
-    RecyclerView.Adapter<GenreTagsRvAdapter.ViewHolder>() {
+    RecyclerView.Adapter<AlbumsTagsRvAdapter.ViewHolder>() {
 
-
-    private var listSize = if (genreTagsList.isNotEmpty()) 10 else 0
     private var listener: ((Tag) -> Unit)? = null
 
     fun setOnItemClickListener(listener: (Tag) -> Unit) {
@@ -23,7 +21,7 @@ class GenreTagsRvAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            RvGenreListItemBinding.inflate(
+            RvTagsListItemBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
@@ -32,19 +30,15 @@ class GenreTagsRvAdapter(
     }
 
     override fun getItemCount(): Int {
-        return listSize
+        return genreTagsList.size
     }
 
     fun updateTagsList(newList: List<Tag>) {
         genreTagsList = newList
-        listSize = 10
         notifyDataSetChanged()
     }
 
-    fun showSpecificItemCount(count: Int) {
-        if (count == -1) listSize = genreTagsList.size else listSize = count
-        notifyDataSetChanged()
-    }
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val tagDetails = genreTagsList[position]
@@ -56,7 +50,7 @@ class GenreTagsRvAdapter(
         }
     }
 
-    inner class ViewHolder(binding: RvGenreListItemBinding) :
+    inner class ViewHolder(binding: RvTagsListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         val tvPost: TextView = binding.tvGenreTagName
     }

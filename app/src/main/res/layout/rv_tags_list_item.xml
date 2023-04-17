@@ -16,6 +16,7 @@
         <TextView
             android:background="@drawable/bg_rounded_corners_wit_borders"
             android:paddingVertical="@dimen/_4sdp"
+            android:paddingHorizontal="@dimen/_2sdp"
             android:lines="1"
             android:ellipsize="end"
             android:id="@+id/tvGenreTagName"

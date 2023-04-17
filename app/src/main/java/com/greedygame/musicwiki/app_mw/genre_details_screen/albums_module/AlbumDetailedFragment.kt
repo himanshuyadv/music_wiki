@@ -9,6 +9,9 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.greedygame.musicwiki.databinding.FragmentAlbumDetailedBinding
+import com.greedygame.musicwiki.presentation_mw.adapters.AlbumsAdapter
+import com.greedygame.musicwiki.presentation_mw.adapters.AlbumsTagsRvAdapter
+import com.greedygame.musicwiki.presentation_mw.adapters.GenreTagsRvAdapter
 import com.greedygame.musicwiki.presentation_mw.viewmodels.SharedViewModel
 import com.greedygame.musicwiki.presentation_mw.viewmodels.ViewModelAlbumDF
 import com.greedygame.musicwiki.util_mw.LoadingState
@@ -20,6 +23,7 @@ class AlbumDetailedFragment : Fragment() {
     private val viewmodelADF: ViewModelAlbumDF by viewModels()
     private val viewmodelSharedADF: SharedViewModel by activityViewModels()
     private lateinit var bindingADF: FragmentAlbumDetailedBinding
+    private lateinit var adapterAlbums: AlbumsTagsRvAdapter
 
 
     override fun onCreateView(
@@ -36,16 +40,30 @@ class AlbumDetailedFragment : Fragment() {
         bindingADF.lifecycleOwner = viewLifecycleOwner
         bindingADF.viewModelAlbumADF = viewmodelADF
 
+        adapterAlbums = AlbumsTagsRvAdapter(ArrayList())
+        bindingADF.rvAlbumTagsList.adapter = adapterAlbums
+
         val album = viewmodelSharedADF.selectedAlbum.value
 
         with(viewmodelADF) {
             lifecycleScope.launch {
                 viewmodelSharedADF.setLoadingState(LoadingState.LOADING)
                 viewmodelSharedADF.setToolbarTitle("")
-                if (albumInfo.value == null) fetchAlbumInfo(
-                    album?.name!!,
-                    album.artist.name
-                ).await()
+                if (albumInfo.value == null){
+                    fetchAlbumInfo(
+                        album?.name!!,
+                        album.artist.name
+                    ).await()
+
+                    viewmodelADF.albumTopTags.observe(viewLifecycleOwner){topTags->
+                        topTags?.let {
+                            adapterAlbums.updateTagsList(it.toptags.tag)
+                        }
+                    }
+
+
+                }
+
                 viewmodelSharedADF.setLoadingState(LoadingState.SUCCESS)
             }
         }

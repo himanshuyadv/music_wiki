@@ -1,6 +1,7 @@
 package com.greedygame.musicwiki.data_mw.api_retrofit
 
 import com.greedygame.musicwiki.data_mw.models.album_details.AlbumInfoModel
+import com.greedygame.musicwiki.data_mw.models.albums_top_tags.AlbumsTopTagsModel
 import com.greedygame.musicwiki.data_mw.models.charts_tag_info.ChartsTagInfoModel
 import com.greedygame.musicwiki.data_mw.models.charts_top_tags.ChartTopTagsResponse
 import com.greedygame.musicwiki.data_mw.models.tags_top_albums.TagsTopAlbumsModel
@@ -44,4 +45,10 @@ interface ApiService {
         @Query("album") albumName: String = "Believe",
         @Query("artist") artist: String = "Cher"
     ): Response<AlbumInfoModel>
+
+    @GET(GET_ALBUM_TOP_TAGS)
+    suspend fun getAlbumTopTags(
+        @Query("album") albumName: String = "Believe",
+        @Query("artist") artist: String = "Cher"
+    ): Response<AlbumsTopTagsModel>
 }
