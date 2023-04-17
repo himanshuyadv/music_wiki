@@ -2,7 +2,6 @@
 
 Music Wiki is a music application that provides information about different music genres, artists, and albums. The app uses the MVVM architecture pattern with Kotlin language and Retrofit library for API calls. The app also uses Kotlin Coroutines for network operations.
 
-![Music Wiki Screenshot](./app_screenshot.png)
 
 ## Features
 
