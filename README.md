@@ -8,16 +8,15 @@ Music Wiki is a music application that provides information about different musi
 
 - Browse through different music genres
 - View list of artists for a specific genre
-- View details about an artist
-- View albums of an artist
+- View list of albums for a specific genre
+- View list of tracks for a specific genre
+- View albums of an genre
 - View details about an album
-- Play preview of a song
 
 ## Architecture
 
 The app is developed using the MVVM (Model-View-ViewModel) architecture pattern. This pattern helps to separate the UI logic from the business logic and provides a clean separation of concerns. 
 
-![MVVM Architecture](./mvvm_architecture.png)
 
 The View layer contains the UI elements and interacts with the ViewModel to get and set data. The ViewModel interacts with the Model layer to retrieve and update data. The Model layer contains the business logic and data access code. 
 
@@ -29,7 +28,7 @@ The following libraries were used in the development of the app:
 - Glide: For loading images
 - Kotlin Coroutines: For handling network operations
 - ViewModel and LiveData: For implementing the MVVM pattern
-- Room: For local data storage
+
 
 ## API
 
