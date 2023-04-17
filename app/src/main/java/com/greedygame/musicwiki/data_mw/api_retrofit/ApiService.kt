@@ -1,5 +1,6 @@
 package com.greedygame.musicwiki.data_mw.api_retrofit
 
+import com.greedygame.musicwiki.BuildConfig
 import com.greedygame.musicwiki.data_mw.models.album_details.AlbumInfoModel
 import com.greedygame.musicwiki.data_mw.models.albums_top_tags.AlbumsTopTagsModel
 import com.greedygame.musicwiki.data_mw.models.charts_tag_info.ChartsTagInfoModel
@@ -51,4 +52,9 @@ interface ApiService {
         @Query("album") albumName: String = "Believe",
         @Query("artist") artist: String = "Cher"
     ): Response<AlbumsTopTagsModel>
+
+
+//    companion object {
+//        private const val API_KEY = BuildConfig.lastFmApiKey
+//    }
 }
