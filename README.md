@@ -39,7 +39,7 @@ To run the app on your device, follow these steps:
 
 1. Clone the repository using the following command 
 
-   `git clone https://github.com/himanshu/MusicWiki.git`
+   `git clone https://github.com/himanshuyadv/music_wiki.git`
 
 
 2. Open the project in Android Studio
