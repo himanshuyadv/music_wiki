@@ -42,7 +42,7 @@ To run the app on your device, follow these steps:
 
 2. Open the project in Android Studio
 
-3. Add your Last.fm API key to the `local.properties` like this lastFmApiKey=YOUR_API_KEY :
+3. Add your Last.fm API key to the `local.properties` like this ->  lastFmApiKey=YOUR_API_KEY :
 
 
 4. Build and run the app on your device
