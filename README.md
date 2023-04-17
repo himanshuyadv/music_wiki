@@ -37,9 +37,7 @@ The app uses the Last.fm API for retrieving music-related data. You will need to
 
 To run the app on your device, follow these steps:
 
-1. Clone the repository using the following command :
-
-git clone https://github.com/himanshu/MusicWiki.git
+1. Clone the repository using the following command : git clone https://github.com/himanshu/MusicWiki.git
 
 
 2. Open the project in Android Studio
