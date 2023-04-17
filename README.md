@@ -37,12 +37,16 @@ The app uses the Last.fm API for retrieving music-related data. You will need to
 
 To run the app on your device, follow these steps:
 
-1. Clone the repository using the following command:
+1. Clone the repository using the following command 
+
+   `git clone https://github.com/himanshu/MusicWiki.git`
 
 
 2. Open the project in Android Studio
 
-3. Add your Last.fm API key to the `local.properties` or Put it on Constents.kt file  temperorily to run the APP:
+3. Add your Last.fm API key to the `local.properties` like this :
+
+   `lastFmApiKey=YOUR_API_KEY`
 
 
 4. Build and run the app on your device
@@ -50,10 +54,8 @@ To run the app on your device, follow these steps:
 ## App Preview
 
 Check out the video preview of the Music Wiki app:
- 
-https://github.com/himanshuyadv/music_wiki/blob/master/video_2023-04-17_08-12-08.mp4
 
-Click on the link above to watch the video preview of the app.
+https://user-images.githubusercontent.com/88643441/232375684-8a8f6e29-7505-4d75-8ab8-96df4d36904c.mp4
 
 
 ## License
