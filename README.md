@@ -54,10 +54,8 @@ To run the app on your device, follow these steps:
 ## App Preview
 
 Check out the video preview of the Music Wiki app:
- 
-https://github.com/himanshuyadv/music_wiki/blob/master/video_2023-04-17_08-12-08.mp4
 
-Click on the link above to watch the video preview of the app.
+https://user-images.githubusercontent.com/88643441/232375684-8a8f6e29-7505-4d75-8ab8-96df4d36904c.mp4
 
 
 ## License
