@@ -1,4 +1,4 @@
-package com.greedygame.musicwiki.app_mw.genre_details_screen
+package com.greedygame.musicwiki.views_mw.genre_details_screen
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,10 +10,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
+
 import com.greedygame.musicwiki.databinding.FragmentGenreDetailsBinding
-import com.greedygame.musicwiki.presentation_mw.adapters.GenreDetailsTabAdapter
-import com.greedygame.musicwiki.presentation_mw.viewmodels.SharedViewModel
-import com.greedygame.musicwiki.util_mw.LoadingState
+
+import com.greedygame.musicwiki.presenter_mw.adapters.GenreDetailsTabAdapter
+import com.greedygame.musicwiki.presenter_mw.viewmodels.SharedViewModel
+import com.greedygame.musicwiki.util_mw.ProgressState
 import com.greedygame.musicwiki.util_mw.tabTitles
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -33,9 +35,10 @@ class GenreDetailsFragment : Fragment() {
         return bindingGDF.root
     }
 
+
     private fun initOnCreateView() {
         viewModelGDF.setToolbarTitle("")
-        if (!viewModelGDF.isPreviousSelectedTag()) viewModelGDF.setLoadingState(LoadingState.LOADING)
+        if (!viewModelGDF.isPreviousSelectedTag()) viewModelGDF.setLoadingState(ProgressState.LOADING)
         val viewpagerStatusAdapter = GenreDetailsTabAdapter(this)
         viePagerGenDetails = bindingGDF.viewPagerGenreItem
         viePagerGenDetails.adapter = viewpagerStatusAdapter
@@ -75,11 +78,11 @@ class GenreDetailsFragment : Fragment() {
                 with(viewModelGDF) {
                     if (isPreviousSelectedTag()) return@launch
                     lastSelectedTag = it.name
-                    fetchTagDetails().await()
+                    fetchTagDetails()
                     fetchTopTracksFromTag().await()
                     fetchTopAlbumsFromTag().await()
                     fetchTopArtistsFromTag().await()
-                    setLoadingState(LoadingState.SUCCESS)
+                    setLoadingState(ProgressState.SUCCESS)
                 }
             }
         }

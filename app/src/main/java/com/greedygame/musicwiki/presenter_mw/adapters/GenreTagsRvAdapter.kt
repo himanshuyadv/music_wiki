@@ -1,4 +1,4 @@
-package com.greedygame.musicwiki.presentation_mw.adapters
+package com.greedygame.musicwiki.presenter_mw.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

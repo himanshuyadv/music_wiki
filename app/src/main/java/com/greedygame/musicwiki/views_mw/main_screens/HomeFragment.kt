@@ -1,21 +1,19 @@
-package com.greedygame.musicwiki.app_mw.main_screens
+package com.greedygame.musicwiki.views_mw.main_screens
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.size
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.greedygame.musicwiki.R
 import com.greedygame.musicwiki.databinding.FragmentHomeBinding
-import com.greedygame.musicwiki.presentation_mw.adapters.GenreTagsRvAdapter
-import com.greedygame.musicwiki.presentation_mw.viewmodels.SharedViewModel
-import com.greedygame.musicwiki.util_mw.LoadingState
+import com.greedygame.musicwiki.presenter_mw.adapters.GenreTagsRvAdapter
+import com.greedygame.musicwiki.presenter_mw.viewmodels.SharedViewModel
+import com.greedygame.musicwiki.util_mw.ProgressState
+import com.greedygame.musicwiki.util_mw.NetworkResult
 import dagger.hilt.android.AndroidEntryPoint
-import okhttp3.internal.notify
-
 
 
 @AndroidEntryPoint
@@ -37,17 +35,24 @@ class HomeFragment : Fragment() {
     private fun initOnCreateHF() {
         with(viewModelSharedHF) {
             setToolbarTitle("musicwiki")
-            setLoadingState(LoadingState.LOADING)
+            setLoadingState(ProgressState.LOADING)
 
             adapterGenreTags = GenreTagsRvAdapter(ArrayList())
             bindingHF.rvGenreTags.adapter = adapterGenreTags
 
             // observing Tags list from shared view model
-            responseLiveData.observe(viewLifecycleOwner) { chartTopTagsResponse ->
-                chartTopTagsResponse?.let {
-                    adapterGenreTags.updateTagsList(it.data?.tags?.tag!!)
-                    viewModelSharedHF.setLoadingState(LoadingState.SUCCESS)
+            responseLiveData.observe(viewLifecycleOwner) {
+                when (it) {
+                    is NetworkResult.Success -> {
+                        adapterGenreTags.updateTagsList(it.data?.tags?.tag!!)
+                        viewModelSharedHF.setLoadingState(ProgressState.SUCCESS)
+                    }
+                    is NetworkResult.Error -> {viewModelSharedHF.setLoadingState(ProgressState.ERROR)}
+                    is NetworkResult.Loading -> {
+                        viewModelSharedHF.setLoadingState(ProgressState.LOADING)
+                    }
                 }
+
             }
         }
 
@@ -59,11 +64,11 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_genreDetailsFragment)
         }
         bindingHF.ivArrowBtn.setOnClickListener {
-            if (it.rotation==0F){
-                it.rotation=180F
+            if (it.rotation == 0F) {
+                it.rotation = 180F
                 adapterGenreTags.showSpecificItemCount(10)
-            } else{
-                it.rotation =0F
+            } else {
+                it.rotation = 0F
                 adapterGenreTags.showSpecificItemCount(-1)
             }
         }

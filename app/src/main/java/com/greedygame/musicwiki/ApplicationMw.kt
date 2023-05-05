@@ -1,4 +1,4 @@
-package com.greedygame.musicwiki.app_mw
+package com.greedygame.musicwiki
 
 import android.app.Application
 import dagger.hilt.android.HiltAndroidApp

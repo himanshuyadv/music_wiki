@@ -1,4 +1,4 @@
-package com.greedygame.musicwiki.presentation_mw.viewmodels
+package com.greedygame.musicwiki.presenter_mw.viewmodels
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -13,8 +13,8 @@ import com.greedygame.musicwiki.data_mw.models.tags_top_albums.Album
 import com.greedygame.musicwiki.data_mw.models.tags_top_albums.TagsTopAlbumsModel
 import com.greedygame.musicwiki.data_mw.models.tags_top_artists.TagsTopArtistsModel
 import com.greedygame.musicwiki.data_mw.models.tags_top_tracks.TagsTopTracksModel
-import com.greedygame.musicwiki.repository_mw.MusicRepository
-import com.greedygame.musicwiki.util_mw.LoadingState
+import com.greedygame.musicwiki.data_mw.repository_mw.MusicRepository
+import com.greedygame.musicwiki.util_mw.ProgressState
 import com.greedygame.musicwiki.util_mw.NetworkResult
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
@@ -31,8 +31,8 @@ class SharedViewModel @Inject constructor(
 
 
     // loading state of UI && Network Requests
-    private val _loadingState = MutableLiveData<LoadingState>()
-    val loadingState: LiveData<LoadingState> = _loadingState
+    private val _progressState = MutableLiveData<ProgressState>()
+    val progressState: LiveData<ProgressState> = _progressState
 
     //genre tags list
     val responseLiveData: LiveData<NetworkResult<ChartTopTagsResponse>>
@@ -82,8 +82,8 @@ class SharedViewModel @Inject constructor(
     }
 
 
-    fun setLoadingState(loadingState: LoadingState) = viewModelScope.launch {
-        _loadingState.postValue(loadingState)
+    fun setLoadingState(progressState: ProgressState) = viewModelScope.launch {
+        _progressState.postValue(progressState)
     }
 
     fun setToolbarTitle(title: String) {

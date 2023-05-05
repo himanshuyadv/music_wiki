@@ -1,4 +1,4 @@
-package com.greedygame.musicwiki.presentation_mw.adapters
+package com.greedygame.musicwiki.presenter_mw.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -9,7 +9,6 @@ import com.bumptech.glide.Glide
 import com.greedygame.musicwiki.data_mw.models.tags_top_tracks.Track
 import com.greedygame.musicwiki.databinding.RvAlbumsItemBinding
 import com.greedygame.musicwiki.util_mw.MEDIUM_SIZE_IMG
-import com.greedygame.musicwiki.util_mw.SMALL_SIZE_IMG
 
 
 class TracksAdapter(

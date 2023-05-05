@@ -1,4 +1,4 @@
-package com.greedygame.musicwiki.presentation_mw.viewmodels
+package com.greedygame.musicwiki.presenter_mw.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,11 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.greedygame.musicwiki.data_mw.api_retrofit.ApiClient
 import com.greedygame.musicwiki.data_mw.models.album_details.AlbumInfoModel
 import com.greedygame.musicwiki.data_mw.models.albums_top_tags.AlbumsTopTagsModel
-import com.greedygame.musicwiki.data_mw.models.tags_top_albums.Album
-import com.greedygame.musicwiki.data_mw.models.tags_top_albums.Albums
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
 
 class ViewModelAlbumDF : ViewModel() {
 

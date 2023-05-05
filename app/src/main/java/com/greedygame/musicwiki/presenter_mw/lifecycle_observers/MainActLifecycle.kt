@@ -1,4 +1,4 @@
-package com.greedygame.musicwiki.presentation_mw.lifecycle_observers
+package com.greedygame.musicwiki.presenter_mw.lifecycle_observers
 
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner

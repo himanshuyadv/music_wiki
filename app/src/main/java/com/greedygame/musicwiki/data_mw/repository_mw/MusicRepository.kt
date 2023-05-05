@@ -1,4 +1,4 @@
-package com.greedygame.musicwiki.repository_mw
+package com.greedygame.musicwiki.data_mw.repository_mw
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -15,6 +15,7 @@ class MusicRepository @Inject constructor(private val apiService: ApiService) {
 
 
     suspend fun fetchTopTags() {
+        _responseLiveData.postValue(NetworkResult.Loading())
         try {
             val response = apiService.getChartsTopTags()
             if (response.isSuccessful) {

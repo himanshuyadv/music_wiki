@@ -1,4 +1,4 @@
-package com.greedygame.musicwiki.app_mw.genre_details_screen.albums_module
+package com.greedygame.musicwiki.views_mw.genre_details_screen.albums_module
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,8 +9,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.greedygame.musicwiki.R
 import com.greedygame.musicwiki.databinding.FragmentAlbumsBinding
-import com.greedygame.musicwiki.presentation_mw.adapters.AlbumsAdapter
-import com.greedygame.musicwiki.presentation_mw.viewmodels.SharedViewModel
+import com.greedygame.musicwiki.presenter_mw.adapters.AlbumsAdapter
+import com.greedygame.musicwiki.presenter_mw.viewmodels.SharedViewModel
 
 
 class AlbumsFragment : Fragment() {

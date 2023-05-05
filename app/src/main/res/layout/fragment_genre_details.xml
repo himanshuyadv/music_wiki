@@ -7,7 +7,7 @@
 
         <variable
             name="viewModel"
-            type="com.greedygame.musicwiki.presentation_mw.viewmodels.SharedViewModel" />
+            type="com.greedygame.musicwiki.presenter_mw.viewmodels.SharedViewModel" />
 
     </data>
 

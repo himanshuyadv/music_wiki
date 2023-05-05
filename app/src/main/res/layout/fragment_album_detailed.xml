@@ -7,14 +7,14 @@
 
         <variable
             name="viewModelAlbumADF"
-            type="com.greedygame.musicwiki.presentation_mw.viewmodels.ViewModelAlbumDF" />
+            type="com.greedygame.musicwiki.presenter_mw.viewmodels.ViewModelAlbumDF" />
 
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".app_mw.genre_details_screen.albums_module.AlbumDetailedFragment">
+        tools:context=".views_mw.genre_details_screen.albums_module.AlbumDetailedFragment">
 
         <ScrollView
             android:layout_width="match_parent"
