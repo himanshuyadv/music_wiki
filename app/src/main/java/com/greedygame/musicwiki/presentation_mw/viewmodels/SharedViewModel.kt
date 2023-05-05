@@ -13,25 +13,35 @@ import com.greedygame.musicwiki.data_mw.models.tags_top_albums.Album
 import com.greedygame.musicwiki.data_mw.models.tags_top_albums.TagsTopAlbumsModel
 import com.greedygame.musicwiki.data_mw.models.tags_top_artists.TagsTopArtistsModel
 import com.greedygame.musicwiki.data_mw.models.tags_top_tracks.TagsTopTracksModel
+import com.greedygame.musicwiki.repository_mw.MusicRepository
 import com.greedygame.musicwiki.util_mw.LoadingState
+import com.greedygame.musicwiki.util_mw.NetworkResult
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class SharedViewModel : ViewModel() {
+
+@HiltViewModel
+class SharedViewModel @Inject constructor(
+    private val repository: MusicRepository
+) : ViewModel() {
+
 
     // loading state of UI && Network Requests
     private val _loadingState = MutableLiveData<LoadingState>()
     val loadingState: LiveData<LoadingState> = _loadingState
 
     //genre tags list
-    private val _genreTopTags = MutableLiveData<ChartTopTagsResponse>()
-    val genreTopTags: LiveData<ChartTopTagsResponse> = _genreTopTags
+    val responseLiveData: LiveData<NetworkResult<ChartTopTagsResponse>>
+        get() = repository.responseLiveData
 
     // selected tag
     private val _selectedTag = MutableLiveData<Tag>()
     val selectedTag: LiveData<Tag> = _selectedTag
-    var lastSelectedTag:String?=null
+    var lastSelectedTag: String? = null
 
     // selected tag Info
     private val _selectedTagInfo = MutableLiveData<ChartsTagInfoModel>()
@@ -55,7 +65,7 @@ class SharedViewModel : ViewModel() {
     val tracksList: LiveData<TagsTopTracksModel> = _tracksList
 
     // genre details data
-    var isGenreDetailsDataExist =false
+    var isGenreDetailsDataExist = false
 
     // retrofit error
     private val _errorMessage = MutableLiveData<String>()
@@ -81,32 +91,22 @@ class SharedViewModel : ViewModel() {
     }
 
     private fun fetchTopTags() = viewModelScope.launch(Dispatchers.IO) {
-        try {
-            val response = ApiClient.apiService.getChartsTopTags()
-            if (response.isSuccessful) {
-                _genreTopTags.postValue(response.body())
-            } else {
-                _errorMessage.postValue(response.message())
-            }
-        } catch (e: Exception) {
-            _errorMessage.postValue(e.message)
-        }
+        repository.fetchTopTags()
     }
 
 
-
-    fun fetchTagDetails() = viewModelScope.async(Dispatchers.IO) {
-        try {
-            val response = ApiClient.apiService.getTagDetails(selectedTag.value?.name!!)
-            if (response.isSuccessful && response.body() != null) {
-                _selectedTagInfo.postValue(response.body())
-            } else {
-                _errorMessage.postValue(response.message())
+    suspend fun fetchTagDetails() = withContext(viewModelScope.coroutineContext + Dispatchers.IO) {
+            try {
+                val response = ApiClient.apiService.getTagDetails(selectedTag.value?.name!!)
+                if (response.isSuccessful && response.body() != null) {
+                    _selectedTagInfo.postValue(response.body())
+                } else {
+                    _errorMessage.postValue(response.message())
+                }
+            } catch (e: Exception) {
+                _errorMessage.postValue(e.message)
             }
-        } catch (e: Exception) {
-            _errorMessage.postValue(e.message)
         }
-    }
 
     fun fetchTopAlbumsFromTag() = viewModelScope.async(Dispatchers.IO) {
         try {
@@ -120,11 +120,12 @@ class SharedViewModel : ViewModel() {
             _errorMessage.postValue(e.message)
         }
     }
-    fun isPreviousSelectedTag():Boolean{
-        return lastSelectedTag==_selectedTag.value?.name
+
+    fun isPreviousSelectedTag(): Boolean {
+        return lastSelectedTag == _selectedTag.value?.name
     }
 
-    fun setSelectedAlbum(album:Album){
+    fun setSelectedAlbum(album: Album) {
         _selectedAlbum.postValue(album)
     }
 
@@ -140,7 +141,6 @@ class SharedViewModel : ViewModel() {
             _errorMessage.postValue(e.message)
         }
     }
-
 
 
     fun fetchTopTracksFromTag() = viewModelScope.async(Dispatchers.IO) {

@@ -9,7 +9,10 @@ import com.greedygame.musicwiki.databinding.ActivityMainBinding
 import com.greedygame.musicwiki.presentation_mw.viewmodels.SharedViewModel
 import com.greedygame.musicwiki.util_mw.LoadingState
 import com.greedygame.musicwiki.util_mw.toastActivity
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var bindingMainAct: ActivityMainBinding
     private val viewModelSharedMainAct: SharedViewModel by viewModels()

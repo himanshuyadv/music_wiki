@@ -2,6 +2,7 @@ package com.greedygame.musicwiki.util_mw
 
 import com.greedygame.musicwiki.BuildConfig
 
+
 val tabTitles = arrayOf("Albums", "Artists", "Tracks")
 const val TAG = "global tag"
 const val apiKeyLastFm = BuildConfig.lastFmApiKey

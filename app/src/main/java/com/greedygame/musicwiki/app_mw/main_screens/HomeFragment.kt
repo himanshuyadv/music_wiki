@@ -13,12 +13,15 @@ import com.greedygame.musicwiki.databinding.FragmentHomeBinding
 import com.greedygame.musicwiki.presentation_mw.adapters.GenreTagsRvAdapter
 import com.greedygame.musicwiki.presentation_mw.viewmodels.SharedViewModel
 import com.greedygame.musicwiki.util_mw.LoadingState
+import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.internal.notify
 
 
+
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private val viewModelSharedHF: SharedViewModel by activityViewModels()
+    private val viewModelSharedHF by activityViewModels<SharedViewModel>()
     private lateinit var bindingHF: FragmentHomeBinding
     private lateinit var adapterGenreTags: GenreTagsRvAdapter
     override fun onCreateView(
@@ -40,9 +43,9 @@ class HomeFragment : Fragment() {
             bindingHF.rvGenreTags.adapter = adapterGenreTags
 
             // observing Tags list from shared view model
-            genreTopTags.observe(viewLifecycleOwner) { chartTopTagsResponse ->
+            responseLiveData.observe(viewLifecycleOwner) { chartTopTagsResponse ->
                 chartTopTagsResponse?.let {
-                    adapterGenreTags.updateTagsList(it.tags.tag)
+                    adapterGenreTags.updateTagsList(it.data?.tags?.tag!!)
                     viewModelSharedHF.setLoadingState(LoadingState.SUCCESS)
                 }
             }
